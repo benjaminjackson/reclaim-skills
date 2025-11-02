@@ -1,0 +1,22 @@
+{
+  "name": "reclaim-skills",
+  "owner": {
+    "name": "Benjamin Jackson",
+    "email": "ben@hearmeout.co"
+  },
+  "metadata": {
+    "description": "Skills for managing tasks in Reclaim.ai calendar scheduling app",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "reclaim",
+      "description": "CRUD operations for Reclaim.ai tasks including create, update, list, complete, and delete with confirmation workflow",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./reclaim-tasks"
+      ]
+    }
+  ]
+}
