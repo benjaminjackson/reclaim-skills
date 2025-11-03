@@ -118,3 +118,15 @@ reclaim delete TASK_ID
 
 - `work`, `working hours`, `business hours` → Work time schemes
 - `personal`, `off hours`, `private` → Personal time schemes
+
+## Understanding Task Status
+
+**CRITICAL**: The `reclaim list active` output shows status COMPLETE with checkmarks (✓) for tasks that are
+**done scheduling** (past their assigned time blocks), NOT tasks that are marked as "done".
+
+- Status: COMPLETE in API (✓ symbol) = Task's scheduled time is in the past
+- Status: SCHEDULED (○ symbol) = Task's scheduled time is in the future
+
+**A task is only truly "done" after you run `reclaim complete TASK_ID`**. Until then, all tasks in
+the active list are open work items, regardless of checkmarks or "COMPLETE" status in the API
+response.
