@@ -9,25 +9,26 @@ Manage CRUD operations for tasks in Reclaim.ai using the `reclaim` CLI.
 
 ## Installation Check
 
-**IMPORTANT**: Before using any Reclaim commands, always check if the `reclaim` CLI is installed:
+**IMPORTANT**: If a `reclaim` command fails with a "binary not found" or "command not found" error:
 
+1. Check if the CLI is installed:
 ```bash
 which reclaim
 ```
 
-If not installed, install it automatically based on the system:
-
-**All systems** (requires Ruby):
+2. If not installed, install it automatically:
 ```bash
 gem install reclaim
 ```
 
-If automatic installation fails, inform the user that they need to install Ruby first, then run `gem install reclaim`.
+3. If automatic installation fails, inform the user that they need to install Ruby first, then run `gem install reclaim`.
 
-After installation, verify it works:
+4. After installation, verify it works:
 ```bash
 reclaim --help
 ```
+
+**Do not preemptively check for installation** - only perform these steps when a command actually fails.
 
 ## Mandatory Confirmation Workflow
 
