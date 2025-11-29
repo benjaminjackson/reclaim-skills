@@ -7,18 +7,13 @@ Manage Reclaim.ai calendar tasks directly from Claude Code with a safety-first a
 - [Overview](#overview)
 - [Features](#features)
 - [Installation](#installation)
-- [Verification](#verification)
 - [Usage](#usage)
 - [Confirmation Workflow](#confirmation-workflow)
 - [Skill Documentation](#skill-documentation)
 - [Common Workflows](#common-workflows)
 - [Task Properties Reference](#task-properties-reference)
-- [Troubleshooting](#troubleshooting)
-- [Contributing](#contributing)
 - [License](#license)
 - [Support](#support)
-- [Related Resources](#related-resources)
-- [Changelog](#changelog)
 
 ## Overview
 
@@ -57,21 +52,6 @@ Or browse and install via the `/plugin` menu.
    reclaim --help
    ```
 
-## Verification
-
-To verify installation:
-
-1. Check the skill is available:
-   ```
-   /plugin
-   ```
-   You should see `reclaim-tasks` listed.
-
-2. Test with Claude Code:
-   ```
-   Show me my active Reclaim tasks
-   ```
-
 ## Usage
 
 The skill activates automatically when you mention tasks, Reclaim, or scheduling. You don't need to explicitly invoke it.
@@ -107,27 +87,7 @@ For all write operations (create, update, complete, delete), Claude will:
 3. Ask for confirmation using a dialog
 4. Execute only after you approve
 
-**Example confirmation dialog:**
-```
-Ready to create this Reclaim task:
-
-Command: reclaim create --title "Write proposal" --due 2025-11-14 --priority P1 --duration 3
-
-This will create:
-- Title: "Write proposal"
-- Priority: P1
-- Due: 2025-11-14
-- Duration: 3 hours
-
-Proceed?
-```
-
-### Read-only Operations
-
-These execute immediately without confirmation:
-- `reclaim list` (or variants: active, completed, overdue)
-- `reclaim get TASK_ID`
-- `reclaim list-schemes`
+Read operations (list, get, list-schemes) execute immediately without confirmation.
 
 ## Skill Documentation
 
@@ -194,44 +154,6 @@ Use aliases for common schemes:
 - `personal`, `off hours`, `private` → Personal time
 - Or use specific scheme IDs from `reclaim list-schemes`
 
-## Troubleshooting
-
-### Skill not activating
-
-**Check installation:**
-```bash
-ls ~/.claude/skills/reclaim-tasks/SKILL.md
-```
-
-**Verify YAML frontmatter:**
-```bash
-head -n 10 ~/.claude/skills/reclaim-tasks/SKILL.md
-```
-
-**Restart Claude Code** to reload skills.
-
-### CLI not found
-
-Ensure the `reclaim` CLI is installed and in your PATH:
-```bash
-which reclaim
-reclaim --help
-```
-
-### Invalid task ID errors
-
-Use `reclaim list` to verify task IDs before updating/completing/deleting.
-
-## Contributing
-
-Contributions are welcome! Please:
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
 ## License
 
 MIT License - see [LICENSE](LICENSE) file for details.
@@ -241,17 +163,3 @@ MIT License - see [LICENSE](LICENSE) file for details.
 - **Issues**: [GitHub Issues](https://github.com/benjaminjackson/reclaim-skills/issues)
 - **Reclaim.ai**: [Reclaim Support](https://reclaim.ai/support)
 - **Claude Code**: [Claude Code Documentation](https://docs.claude.com/en/docs/claude-code)
-
-## Related Resources
-
-- [Reclaim.ai](https://reclaim.ai) - Smart calendar scheduling
-- [Claude Code Skills Guide](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/quickstart)
-- [Agent Skills Best Practices](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/best-practices)
-
-## Changelog
-
-### v1.0.0 (2025-11-02)
-- Initial release
-- Complete CRUD operations for Reclaim tasks
-- Confirmation workflow for write operations
-- Comprehensive documentation and examples
