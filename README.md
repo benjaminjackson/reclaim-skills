@@ -1,6 +1,24 @@
 # Reclaim Skills for Claude Code
 
-Agent Skills for managing tasks in [Reclaim.ai](https://reclaim.ai) using Claude Code.
+Manage Reclaim.ai calendar tasks directly from Claude Code with a safety-first approach.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Installation](#installation)
+- [Verification](#verification)
+- [Usage](#usage)
+- [Confirmation Workflow](#confirmation-workflow)
+- [Skill Documentation](#skill-documentation)
+- [Common Workflows](#common-workflows)
+- [Task Properties Reference](#task-properties-reference)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
+- [Support](#support)
+- [Related Resources](#related-resources)
+- [Changelog](#changelog)
 
 ## Overview
 
@@ -16,45 +34,43 @@ This skill provides comprehensive CRUD operations for Reclaim.ai tasks with a sa
 - **Query time schemes** to see available scheduling windows
 - **Confirmation workflow** for all write operations to prevent accidental changes
 
-## Prerequisites
-
-1. [Claude Code](https://claude.com/claude-code) version 1.0 or later
-2. [Reclaim.ai account](https://reclaim.ai)
-3. Ruby (for installing the Reclaim gem)
-
 ## Installation
 
-### Step 1: Install the Reclaim CLI
-
-Install the Reclaim gem:
-
-```bash
-gem install reclaim
-```
-
-Verify installation:
-
-```bash
-reclaim --help
-```
-
-### Step 2: Install the Skill
-
-Install the skill from the Claude Code marketplace:
+Install from the Claude Code plugin marketplace:
 
 ```
 /plugin marketplace add benjaminjackson/reclaim-skills
+/plugin install reclaim-tasks@reclaim-skills
 ```
+
+Or browse and install via the `/plugin` menu.
+
+**Prerequisites:**
+
+1. **Reclaim.ai account** - Sign up at [reclaim.ai](https://reclaim.ai)
+2. **Reclaim CLI**:
+   ```bash
+   gem install reclaim
+   ```
+3. **Verify CLI installation**:
+   ```bash
+   reclaim --help
+   ```
 
 ## Verification
 
-Verify the skill is installed by asking Claude Code:
+To verify installation:
 
-```
-What skills are available?
-```
+1. Check the skill is available:
+   ```
+   /plugin
+   ```
+   You should see `reclaim-tasks` listed.
 
-You should see `reclaim-tasks` in the list.
+2. Test with Claude Code:
+   ```
+   Show me my active Reclaim tasks
+   ```
 
 ## Usage
 
