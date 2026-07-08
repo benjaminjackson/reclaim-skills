@@ -1,165 +1,32 @@
-# Reclaim Skills for Claude Code
+# reclaim-skills
 
-Manage Reclaim.ai calendar tasks directly from Claude Code with a safety-first approach.
-
-## Table of Contents
-
-- [Overview](#overview)
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Confirmation Workflow](#confirmation-workflow)
-- [Skill Documentation](#skill-documentation)
-- [Common Workflows](#common-workflows)
-- [Task Properties Reference](#task-properties-reference)
-- [License](#license)
-- [Support](#support)
-
-## Overview
-
-This skill provides comprehensive CRUD operations for Reclaim.ai tasks with a safety-first approach. All write operations (create, update, complete, delete) require explicit user confirmation before execution.
-
-## Features
-
-- **Create tasks** with flexible options (priority, duration, dates, time schemes, splitting)
-- **Update tasks** to change any task property
-- **List and filter** tasks (active, completed, overdue)
-- **Complete tasks** (marks as ARCHIVED)
-- **Delete tasks** permanently
-- **Query time schemes** to see available scheduling windows
-- **Confirmation workflow** for all write operations to prevent accidental changes
+A Claude Code plugin marketplace with one plugin: **reclaim**, which manages your [Reclaim.ai](https://reclaim.ai) tasks from inside a Claude Code session — create, update, list, complete, and delete, with a confirmation step before anything gets written.
 
 ## Installation
 
-Install from the Claude Code plugin marketplace:
-
-```
-/plugin marketplace add benjaminjackson/reclaim-skills
-/plugin install reclaim-tasks@reclaim-skills
+```sh
+claude plugin marketplace add benjaminjackson/reclaim-skills
+claude plugin install reclaim@reclaim-skills
 ```
 
-Or browse and install via the `/plugin` menu.
+The skill drives the [`reclaim` CLI](https://rubygems.org/gems/reclaim) (`gem install reclaim`), but you don't have to install it up front — if a command fails because the CLI is missing, the skill installs the gem itself and only asks you to step in if that fails (say, because Ruby isn't there).
 
-**Prerequisites:**
+## reclaim
 
-1. **Reclaim.ai account** - Sign up at [reclaim.ai](https://reclaim.ai)
-2. **Reclaim CLI**:
-   ```bash
-   gem install reclaim
-   ```
-3. **Verify CLI installation**:
-   ```bash
-   reclaim --help
-   ```
+One skill: **reclaim-tasks**, full CRUD for Reclaim.ai tasks via the `reclaim` CLI.
 
-## Usage
+### reclaim-tasks
 
-The skill activates automatically when you mention tasks, Reclaim, or scheduling. You don't need to explicitly invoke it.
+Handles the whole task lifecycle: creating tasks with a title, due date, priority (P1–P4), duration, notes, deferral or start dates, splitting into chunks, and a time scheme (work or personal hours); updating any of those on an existing task; listing active, completed, or overdue tasks; fetching a task's details; listing your available time schemes; and marking tasks complete or deleting them.
 
-### Quick Examples
+The safety rule is the heart of it: every write — create, update, complete, delete — shows you the exact command it's about to run and waits for your approval before executing. Reads (list, get, list-schemes) run immediately, no confirmation needed.
 
-**List tasks:**
-```
-Show me my active Reclaim tasks
-```
+It also knows one genuinely confusing quirk of Reclaim's API: the active-task list shows a COMPLETE status with a checkmark for tasks whose *scheduled time blocks* are in the past, not tasks that are actually done. The skill treats everything in the active list as open work until you explicitly complete it, so a checkmark won't fool it into thinking you finished something you didn't.
 
-**Create a task:**
-```
-Create a Reclaim task called "Write proposal" due Friday, P1 priority, 3 hours
-```
+#### Usage
 
-**Update a task:**
-```
-Update task abc123 to P2 priority and change due date to next Monday
-```
+- **Automatically:** on requests like "show me my active Reclaim tasks," "create a task called 'Write proposal' due Friday, P1, 3 hours," "change task abc123's due date to Monday," or "mark task abc123 as complete" — anything touching Reclaim tasks, calendar scheduling, priorities, time blocking, or task durations.
 
-**Complete a task:**
-```
-Mark task abc123 as complete
-```
+## Author
 
-### Confirmation Workflow
-
-For all write operations (create, update, complete, delete), Claude will:
-
-1. Parse your request
-2. Show you the exact command that will be executed
-3. Ask for confirmation using a dialog
-4. Execute only after you approve
-
-Read operations (list, get, list-schemes) execute immediately without confirmation.
-
-## Skill Documentation
-
-The skill includes three documentation files:
-
-- **[SKILL.md](reclaim-tasks/SKILL.md)** - Quick reference and overview
-- **[EXAMPLES.md](reclaim-tasks/EXAMPLES.md)** - Comprehensive examples for all workflows
-- **[REFERENCE.md](reclaim-tasks/REFERENCE.md)** - Complete option and command reference
-
-Claude will progressively load these as needed to answer your questions.
-
-## Common Workflows
-
-### Morning Planning
-```
-Show me my overdue tasks
-List my active tasks for today
-Update task xyz to P1 priority
-```
-
-### Quick Task Capture
-```
-Create a task "Review PR" with 30 minutes duration
-Add a task "Team standup" tomorrow at 9am, 1 hour
-```
-
-### Task Management
-```
-Show details for task abc123
-Change the due date of task abc123 to next Friday
-Mark task abc123 as complete
-```
-
-### Advanced Scheduling
-```
-Create a 6-hour task "Documentation sprint" that can be split into 1.5 hour chunks, P2 priority, work hours only
-```
-
-## Task Properties Reference
-
-### Priority Levels
-- **P1** - Highest priority (urgent and important)
-- **P2** - High priority
-- **P3** - Medium priority (default)
-- **P4** - Low priority
-
-### Duration Format
-Specified in hours (decimal):
-- `0.25` = 15 minutes
-- `0.5` = 30 minutes
-- `1` = 1 hour
-- `1.5` = 90 minutes
-- `2` = 2 hours
-- `4` = 4 hours
-
-### Date Formats
-- **Date**: `YYYY-MM-DD` (e.g., `2025-11-15`)
-- **DateTime**: `YYYY-MM-DDTHH:MM:SS` (e.g., `2025-11-15T14:30:00`)
-- **Clear date**: Use `none`, `clear`, or `null`
-
-### Time Schemes
-Use aliases for common schemes:
-- `work`, `working hours`, `business hours` → Work time
-- `personal`, `off hours`, `private` → Personal time
-- Or use specific scheme IDs from `reclaim list-schemes`
-
-## License
-
-MIT License - see [LICENSE](LICENSE) file for details.
-
-## Support
-
-- **Issues**: [GitHub Issues](https://github.com/benjaminjackson/reclaim-skills/issues)
-- **Reclaim.ai**: [Reclaim Support](https://reclaim.ai/support)
-- **Claude Code**: [Claude Code Documentation](https://docs.claude.com/en/docs/claude-code)
+Benjamin Jackson ([@benjaminjackson](https://github.com/benjaminjackson))
